@@ -1,0 +1,5 @@
+-keep class com.highcapable.yukihookapi.** { *; }
+-keep class com.highcapable.kavaref.** { *; }
+-keep class de.robv.android.xposed.** { *; }
+-keep class com.hook.automation.HookEntry { *; }
+-keepattributes Signature,RuntimeVisibleAnnotations,AnnotationDefault
