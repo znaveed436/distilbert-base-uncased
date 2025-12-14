@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -9,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.hook.automation"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.hook.automation"
-        minSdk = 28
-        targetSdk = 35
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -30,18 +28,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
     }
 
     kotlin {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
+        }
     }
-}
 
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = libs.versions.kotlin.get() }
+    composeOptions { kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get() }
 
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
 }
@@ -55,6 +53,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.material)
     implementation(libs.recyclerview)
+    implementation(libs.appcompat)
 
     implementation(libs.yukihookapi.api)
     implementation(libs.kavaref.core)
