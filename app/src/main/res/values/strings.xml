@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hook Automation</string>
+    <string name="module_description">Auto-generates hooks for selected apps</string>
+</resources>
